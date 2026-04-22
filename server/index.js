@@ -78,15 +78,21 @@ cron.schedule('5 0 1 * *', async () => {
   console.log('✅ Monthly report generated');
 });
 
-const _dirname = path.resolve();
-app.use(express.static(path.join(_dirname, '/client/build')));
-app.get('*', (req, res) =>
-    res.sendFile(path.join(_dirname, '/client/build/index.html'))
-);
+const path = require("path");
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static("client/build"));
-}
+const __dirname1 = path.resolve();
+
+app.use(express.static(path.join(__dirname1, "client", "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname1, "client", "dist", "index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
