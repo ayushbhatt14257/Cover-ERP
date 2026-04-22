@@ -85,12 +85,10 @@ server.listen(PORT, () => {
 });
 
 
-const _dirname = path.resolve();
-app.use(express.static(path.join(_dirname, '/client/build')));
-app.get('*', (req, res) =>
-    res.sendFile(path.join(_dirname, '/client/build/index.html'))
-);
+const __dirname1 = path.resolve();
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static("client/build"));
-}
+app.use(express.static(path.join(__dirname1, "../client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname1, "../client/dist/index.html"));
+});
