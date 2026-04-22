@@ -5,6 +5,8 @@ const { Server } = require('socket.io');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cron = require('node-cron');
+const path = require("path");
+
 
 const authRoutes = require('./routes/auth');
 const skuRoutes = require('./routes/skus');
@@ -81,6 +83,14 @@ server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
 });
-app.get('/', (req, res) => {
-  res.send('🚀 ERP Backend is Running');
-});
+
+
+const _dirname = path.resolve();
+app.use(express.static(path.join(_dirname, '/client/build')));
+app.get('*', (req, res) =>
+    res.sendFile(path.join(_dirname, '/client/build/index.html'))
+);
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static("client/build"));
+}
