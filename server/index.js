@@ -81,3 +81,6 @@ server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
 });
+app.get('/', (req, res) => {
+  res.send('🚀 ERP Backend is Running');
+});
